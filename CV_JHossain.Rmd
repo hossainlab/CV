@@ -1,0 +1,59 @@
+---
+name: Md. Jubayer Hossain
+#position: "Lead"
+#aboutme: Public Health, Machine Learning, Bioinformatics 
+#address: "Dhaka, Bangladesh"
+#phone: +1 617 432 7004
+#phone: +1 617 945 4383
+email: "contact.jubayerhossain@gmail.com"
+twitter: JHossain_28
+github: hossainlab
+linkedin: hossainmj
+headcolor: 414141
+date: "`r format(Sys.time(), '%B %Y')`"
+output: 
+  vitae::awesomecv
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(vitae)
+library(tidyr)
+library(dplyr)
+library(readr)
+library(glue)
+library(tibble)
+library(lubridate)
+library(here)
+library(scales)
+```
+
+
+# Education
+**<span style="font-size:1em;">Jagannath University</span>** \hfill _Dhaka, Bangladesh_  
+Master of Science in Microbiology\hfill _2020_
+
+**<span style="font-size:1em;">Jagannath University</span>** \hfill _Dhaka, Bangladesh_  
+Bachelor of Science in Microbiology \hfill _2019_
+
+
+
+# Experience
+**<span style="font-size:1em;">Rheos Medicines</span>** \hfill _Boston, MA_  
+Vice President, Computational Biology and Bioinformatics \hfill _July 2022 - present_  
+
+Currently leading a team of 15 computational biologists, machine learning scientists, and data analysts, to drive the discovery of novel chemical entities that can modulate cell behavior phenotypes. Some of the functions associated with the role include: 
+
+ - Implementation of Computational Biology strategy within the company, working closely with C-level executives
+ - Managing expectations of the Executive team in terms of current capabilities as well as areas for growth in 1-5 year plans.
+ - Management of team activities in line with cross-functional teams needs as well as development of internal capabilities to advance existing pre-clinical programs and platform advancements
+
+
+
+
+# Publications
+ - Gazzaniga, FS, **Camacho, DM**, Wu, M, Palazzo, MFS, Dinis, ALM, Grafton, FN, Cartwright, MJ, Super, M, Kasper, DL, Ingber, DE (2021), Harnessing Colon Chip technology to identify commensal bacteria that promote host tolerance to infection, _Frontiers in Cellular and Infection Microbiology_, 11, 105 [[PubMed](https://pubmed.ncbi.nlm.nih.gov/33777849/)]
+tents.google.com/patent/WO2014130922A1/en)]
+
+# References
+References will be provided upon request.
