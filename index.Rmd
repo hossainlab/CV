@@ -1,0 +1,309 @@
+---
+output:
+  html_document:
+    css: css/website-cv.css
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(knitr)
+library(glue)
+library(fontawesome)
+library(DT)
+library(lubridate)
+library(readxl)
+source("R/utility-functions.R")
+
+cv_entries <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "cv_entries") |> 
+  mutate(year = year(date))
+publications <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "publications") |> 
+  mutate(year = year(date))
+```
+
+# Summary
+
+I am *[Md. Jubayer Hossain](https://hossainlab.github.io/)*. I am the founder and Executive Director of [CHIRAL Bangladesh](https://chiralbd.org/), a non-profit biomedical research organization dedicated to solving public health problems in Bangladesh. Additionally, I am also working as a health data analysis instructor at [cBLAST](https://www.cblastdu.xyz/). My professional endeavors aim to maximize the quality of life for individuals by operating at the intersection of education, technology, and health research.
+
+I am interested in applying modern data science techniques in the context of disease diagnosis and large data analytics for public health while focusing on bridging the gap between computational and experimental laboratories through highly engaging and fruitful collaborations.
+
+
+
+[`r fa("download")` CV as PDF](https://ulriklyngs.com/pdfs/academic_cv.pdf)
+
+# Experiences {.domain-header}
+##  Research Positions
+```{r}
+research <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "research") 
+
+research |>  
+  mutate(role = str_c("<span class='cv-entry-title'>",
+                      role, "</span><br>", 
+                      institution)) |> 
+  select(dates, role) |> 
+  kable(escape = FALSE)
+```
+
+
+## Teaching Experience
+
+```{r, teaching-experience}
+teaching <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "teaching") 
+teaching |> 
+  mutate(role = ifelse(!is.na(details), 
+    str_c("<span class='cv-entry-title'>", role, "</span><br class='work-break'>", institution, "<br>", details),
+    str_c("<span class='cv-entry-title'>", role, "</span><br class='work-break'>", where))) |> 
+  select(dates, role) |> 
+  kable(escape = FALSE)
+  
+```
+
+
+## Courses and Workshops
+
+```{r, courses-workshops}
+courses <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "courses") 
+courses |> 
+  mutate(role = ifelse(!is.na(details), 
+    str_c("<span class='cv-entry-title'>", role, "</span>,",  title, "</span><br class='work-break'>", institution, "<br>", details),
+    str_c("<span class='cv-entry-title'>", role, "</span><br class='work-break'>", institution))) |> 
+  select(dates, role) |> 
+  kable(escape = FALSE)
+```
+
+## Education
+
+```{r}
+education <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "education") 
+
+education  |> 
+  mutate(
+    degree = paste(
+      "<span class='cv-entry-title'>", 
+      degree,"</span>,", 
+      institution, "</span>,",
+      where, 
+      "<br>", 
+      details
+    )
+  )  |> 
+  select(year, degree)  |> 
+  kable(escape = FALSE)
+```
+
+## Training 
+```{r}
+training <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "training") 
+
+training  |> 
+  mutate(
+    title = paste(
+      "<span class='cv-entry-title'>", 
+      title,"</span>,", 
+      institution, "</span>,",
+      where, 
+      "<br>", 
+      details
+    )
+  )  |> 
+  select(year, title)  |> 
+  kable(escape = FALSE)
+```
+
+
+# Skills
+```{r, skills}
+skills <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "skills") 
+
+skills |> 
+  mutate(icon = case_when(
+    str_detect(what, "Programming") ~ "code",
+    str_detect(what, "Reproducible Research") ~ "flask",
+    str_detect(what, "Web") ~ "laptop"
+  )) |> 
+  rowwise() |> 
+  mutate(what = str_c(fa(icon), "&nbsp;<span class='cv-entry-title'>", what, "</span> ", additional_info)) |> 
+  select(what) |> 
+  kable(escape=FALSE)
+```
+
+
+## Dashboards
+```{r}
+cv_entries |> 
+  filter(type == 'software-browser-extensions' & is.na(exclude)) |> 
+  replace_na(list(where = "", additional_info = "")) |> 
+  mutate(what = glue("<span class='cv-entry-title'>{what}</span>, {where}")) |>
+  arrange(desc(year)) |> 
+  mutate(row_number = row_number()) |> 
+  select(year, what) |> 
+  kable(escape=FALSE)
+```
+
+
+## Research Dissemination {.tabset .output-header}
+### Talks
+```{r}
+dissemination <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "dissemination") |> mutate(year = year(date))
+
+dissemination |> 
+  filter(type == 'talk') |> 
+  mutate(where = str_replace(where, "\\[([^]]*)\\]\\(([^\\s^\\)]*)[\\s\\)]", "<a href='\\2'>\\1</a>")) |> 
+  mutate(what = glue::glue("<em>{what}</em>, {where}", .na = "")) |> 
+  select(date, what) |> 
+  arrange(desc(date)) |> 
+  mutate(date = str_c(year(date),", ",
+                      month(date, label = TRUE))) |> 
+  datatable(rownames = FALSE, escape = FALSE, class = 'row-border', options = list(
+  pageLength = 10
+))
+
+```
+
+### Posters {.posters}
+```{r}
+dissemination |> 
+  filter(type == 'poster') |>
+  mutate(what = str_c("*", what, "*, ", where)) |> 
+  select(year, what) |> 
+  arrange(desc(year)) |> 
+  kable()
+```
+
+### Media {.media}
+```{r}
+dissemination |> 
+  filter(type == 'media') |>
+  mutate(what = str_c("*", what, "*, ", where)) |> 
+  select(year, what) |> 
+  arrange(desc(year)) |> 
+  kable()
+```
+
+
+
+
+
+
+
+
+# Publications {.three-split}
+
+:::::: {.grid-container-publications}
+::::::::: {.conference-publication-heading}
+<h3>Conference Posters <br><span class="review-note"></span></h3>
+:::::::::
+
+::::::::: {.conference-note}
+<h3></h3>
+:::::::::
+::::::
+
+
+```{r}
+publications_formatted <- publications |> 
+  mutate(authors = map_chr(authors,replace_first_names_in_author_list_with_initial_and_dot), # e.g. U. Lyngs instead of Ulrik Lyngs
+         authors = str_replace(authors, "U\\. Lyngs", "*U\\. Lyngs*"))    # make my name italic
+
+publications_formatted |>
+  filter(type == "conference paper") |> 
+  # insert appropriate icon for paper awards (and start with a line break)
+  mutate(award = case_when(
+    !is.na(award) & str_detect(award, "honourable") ~ glue("<br>", fa("award"), " <span class='publication-award'>{award}</span>"),
+    !is.na(award) ~ glue("<br>", fa("trophy"), " <span class='publication-award'>{award}</span>"),
+    TRUE ~ ""
+  )) |>
+  # create citations
+  mutate(citation = glue("<span class='cv-entry-title'>{title}</span><br>",
+                         "<span class='publication-authors'>{authors}</span><br>",
+                         "<span class='publication-venue'>{venue_abbrev}{venue}</span>{award}")) |> 
+  # number entries with a prefix
+  add_leading_zeroes_and_letter("C") |> 
+  blank_year_when_repeated() |> 
+  select(year, number, citation) |>
+  manual_page_break_after_row("citation", "Applying Dual Systems Theory") |> 
+  knitr::kable()
+```
+
+<!-- <br class="pageBreak"> -->
+<h3>Journal Articles <span class="review-note">(Peer-reviewed)</span></h3>
+
+```{r}
+publications_formatted |>
+  filter(type == "journal article") |> 
+  mutate(citation = glue("<span class='cv-entry-title'>{title}</span><br>",
+                         "<span class='publication-authors'>{authors}</span><br>",
+                         "<span class='publication-venue'>{venue_abbrev}{venue}</span>")) |> 
+  add_leading_zeroes_and_letter("J") |> 
+  blank_year_when_repeated() |>
+  select(year, number, citation) |>
+  knitr::kable()
+```
+
+
+
+<!--
+Boot Chapters 
+```{r}
+publications_formatted |> 
+  filter(type == "book chapter") |> 
+  mutate(citation = glue("<span class='cv-entry-title'>{title}</span><br>",
+                         "<span class='publication-authors'>{authors}</span><br>",
+                         "<span class='publication-venue'>{venue_abbrev}: {venue}</span>")) |>
+  add_leading_zeroes_and_letter("B") |> 
+  blank_year_when_repeated() |>
+  select(year, number, citation) |>
+  knitr::kable()
+
+```
+-->
+
+<h3>Extended abstracts and workshop papers <br><span class="review-note">(lightly reviewed)</span></h3>
+
+```{r}
+publications_formatted |>
+  filter(type == "extended abstract" | type == "workshop paper") |> 
+  mutate(citation = glue("<span class='cv-entry-title'>{title}</span><br>",
+                         "<span class='publication-authors'>{authors}</span><br>",
+                         "<span class='publication-venue'>{venue_abbrev} {venue}</span>")) |>
+  add_leading_zeroes_and_letter("A") |> 
+  blank_year_when_repeated() |>
+  select(year, number, citation) |>
+  manual_page_break_after_row("citation", "Reduce Psychological Reactance") |> 
+  knitr::kable()
+```
+
+## Publicly available research code & data
+```{r}
+pubs_w_number <- publications |> 
+  select(type, authors, date, year, title, materials) |> 
+  mutate(inclusive_type = if_else(type == "workshop paper" | type == "extended abstract", "abstract", type)) |> 
+  group_by(inclusive_type) |> 
+  arrange(date) |> 
+  mutate(number = row_number(),
+         number = case_when(
+           inclusive_type == "conference paper" ~ glue("[C{number}]"),
+           inclusive_type == "journal article" ~ glue("[J{number}]"),
+           inclusive_type == "abstract" ~ glue("[A{number}]"),
+           TRUE ~ ""
+         ))
+
+public_code <- cv_entries |> 
+  filter(type == 'open_research' & is.na(exclude)) |> 
+  select(what, additional_info) |> 
+  rename(title = additional_info) |> 
+  left_join(pubs_w_number)
+
+public_code |> 
+  mutate(what = glue("<span class='cv-entry-title'>{what} {number}</span><br>", 
+                      "{authors}<br>",
+                      "{materials}")) |> 
+  arrange(desc(date)) |> 
+  select(year, what) |> 
+  blank_year_when_repeated() |> 
+  manual_page_break_after_row("what", "Ulysses") |> 
+  kable()
+```
+
