@@ -1,4 +1,5 @@
 ---
+title: "Md. Jubayer Hossain"
 output:
   html_document:
     css: css/website-cv.css
@@ -23,7 +24,9 @@ publications <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "publications") |>
   mutate(year = year(date))
 ```
 
-# Summary
+
+
+## Summary
 
 I am *[Md. Jubayer Hossain](https://hossainlab.github.io/)*. I am the founder and Executive Director of [CHIRAL Bangladesh](https://chiralbd.org/), a non-profit biomedical research organization dedicated to solving public health problems in Bangladesh. Additionally, I am also working as a health data analysis instructor at [cBLAST](https://www.cblastdu.xyz/). My professional endeavors aim to maximize the quality of life for individuals by operating at the intersection of education, technology, and health research.
 
@@ -31,47 +34,10 @@ I am interested in applying modern data science techniques in the context of dis
 
 
 
-[`r fa("download")` CV as PDF](https://ulriklyngs.com/pdfs/academic_cv.pdf)
+[`r fa("download")` CV as PDF]()
 
-# Experiences {.domain-header}
-##  Research Positions
-```{r}
-research <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "research") 
+## Research Interest
 
-research |>  
-  mutate(role = str_c("<span class='cv-entry-title'>",
-                      role, "</span><br>", 
-                      institution)) |> 
-  select(dates, role) |> 
-  kable(escape = FALSE)
-```
-
-
-## Teaching Experience
-
-```{r, teaching-experience}
-teaching <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "teaching") 
-teaching |> 
-  mutate(role = ifelse(!is.na(details), 
-    str_c("<span class='cv-entry-title'>", role, "</span><br class='work-break'>", institution, "<br>", details),
-    str_c("<span class='cv-entry-title'>", role, "</span><br class='work-break'>", where))) |> 
-  select(dates, role) |> 
-  kable(escape = FALSE)
-  
-```
-
-
-## Courses and Workshops
-
-```{r, courses-workshops}
-courses <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "courses") 
-courses |> 
-  mutate(role = ifelse(!is.na(details), 
-    str_c("<span class='cv-entry-title'>", role, "</span>,",  title, "</span><br class='work-break'>", institution, "<br>", details),
-    str_c("<span class='cv-entry-title'>", role, "</span><br class='work-break'>", institution))) |> 
-  select(dates, role) |> 
-  kable(escape = FALSE)
-```
 
 ## Education
 
@@ -112,6 +78,46 @@ training  |>
   kable(escape = FALSE)
 ```
 
+
+# Experiences {.domain-header}
+##  Research Positions
+```{r}
+research <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "research") 
+
+research |>  
+  mutate(role = str_c("<span class='cv-entry-title'>",
+                      role, "</span><br>", 
+                      institution)) |> 
+  select(dates, role) |> 
+  kable(escape = FALSE)
+```
+
+
+## Teaching Experience
+
+```{r, teaching-experience}
+teaching <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "teaching") 
+teaching |> 
+  mutate(role = ifelse(!is.na(details), 
+    str_c("<span class='cv-entry-title'>", role, "</span><br class='work-break'>", institution, "<br>", details),
+    str_c("<span class='cv-entry-title'>", role, "</span><br class='work-break'>", where))) |> 
+  select(dates, role) |> 
+  kable(escape = FALSE)
+  
+```
+
+
+## Courses and Workshops
+
+```{r, courses-workshops}
+courses <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "courses") 
+courses |> 
+  mutate(role = ifelse(!is.na(details), 
+    str_c("<span class='cv-entry-title'>", role, "</span>,",  title, "</span><br class='work-break'>", institution, "<br>", details),
+    str_c("<span class='cv-entry-title'>", role, "</span><br class='work-break'>", institution))) |> 
+  select(dates, role) |> 
+  kable(escape = FALSE)
+```
 
 # Skills
 ```{r, skills}
