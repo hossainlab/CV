@@ -1,0 +1,57 @@
+---
+# name: Md. Jubayer
+surname: Md. Jubayer Hossain
+position: "Founder & Executive Director"
+address: "[Center for Health Innovation, Research, Action, and Learning - Bangladesh (CHIRAL Bangladesh](http://chiralbd.org/))"
+email: "hossainmj.me@gmail.com"
+orcid: 0000-0001-9323-4997
+www: hossainlab.github.io
+linkedin: hossainmj
+github: hossainlab
+headcolor: 414141
+docname: CV 
+date: "`r format(Sys.time(), '%B %Y')`"
+linkcolor: red
+urlcolor: red
+citecolor: red
+header-includes: |
+  \usepackage{float}
+  \usepackage{multicol}
+  \usepackage{colortbl}
+  \arrayrulecolor{white}
+  \usepackage{hhline}
+  \usepackage{ragged2e}
+  \definecolor{light-gray}{gray}{0.95}
+  \definecolor{deepfontcolor}{RGB}{0, 51, 102}
+output: 
+  vitae::awesomecv:
+    keep_tex: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+options(tinytex.verbose = TRUE)
+library(tinytex)
+library(vitae)
+library(tidyverse)
+library(dplyr)
+library(kableExtra)
+library(knitr)
+library(huxtable)
+library(readxl)
+```
+
+## Education and Training 
+
+```{r}
+education <- read_excel("CV_Data_HossainMJ.xlsx", sheet = "education") 
+education |> 
+  detailed_entries(what = degree,
+                   when = year,
+                   with = institution,
+                   where = where,
+                   why = details)
+```
+ 
+
+
