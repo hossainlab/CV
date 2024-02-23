@@ -1,0 +1,133 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% Awesome CV LaTeX Template for CV/Resume
+%
+% This template has been downloaded from:
+% https://github.com/posquit0/Awesome-CV
+%
+% Author:
+% Claud D. Park <posquit0.bj@gmail.com>
+% http://www.posquit0.com
+%
+%
+% Adapted to be an Rmarkdown template by Mitchell O'Hara-Wild
+% 23 November 2018
+%
+% Template license:
+% CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+%
+%-------------------------------------------------------------------------------
+% CONFIGURATIONS
+%-------------------------------------------------------------------------------
+% A4 paper size by default, use 'letterpaper' for US letter
+\documentclass[11pt,a4paper,]{awesome-cv}
+
+% Configure page margins with geometry
+\usepackage{geometry}
+\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+
+
+% Specify the location of the included fonts
+\fontdir[fonts/]
+
+% Color for highlights
+% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
+%                 awesome-nephritis, awesome-concrete, awesome-darknight
+
+\definecolor{awesome}{HTML}{414141}
+
+% Colors for text
+% Uncomment if you would like to specify your own color
+% \definecolor{darktext}{HTML}{414141}
+% \definecolor{text}{HTML}{333333}
+% \definecolor{graytext}{HTML}{5D5D5D}
+% \definecolor{lighttext}{HTML}{999999}
+
+% Set false if you don't want to highlight section with awesome color
+\setbool{acvSectionColorHighlight}{true}
+
+% If you would like to change the social information separator from a pipe (|) to something else
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+\def\endfirstpage{\newpage}
+
+%-------------------------------------------------------------------------------
+%	PERSONAL INFORMATION
+%	Comment any of the lines below if they are not required
+%-------------------------------------------------------------------------------
+% Available options: circle|rectangle,edge/noedge,left/right
+
+\name{}{Md. Jubayer Hossain}
+
+\position{Founder \& Executive Director}
+\address{\href{http://chiralbd.org/}{Center for Health Innovation,
+Research, Action, and Learning - Bangladesh (CHIRAL Bangladesh})}
+
+\email{\href{mailto:hossainmj.me@gmail.com}{\nolinkurl{hossainmj.me@gmail.com}}}
+\homepage{hossainlab.github.io}
+\orcid{0000-0001-9323-4997}
+\github{hossainlab}
+\linkedin{hossainmj}
+
+% \gitlab{gitlab-id}
+% \stackoverflow{SO-id}{SO-name}
+% \skype{skype-id}
+% \reddit{reddit-id}
+
+
+\usepackage{booktabs}
+
+\providecommand{\tightlist}{%
+	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+%------------------------------------------------------------------------------
+
+
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{colortbl}
+\arrayrulecolor{white}
+\usepackage{hhline}
+\usepackage{ragged2e}
+\definecolor{light-gray}{gray}{0.95}
+\definecolor{deepfontcolor}{RGB}{0, 51, 102}
+
+% Pandoc CSL macros
+
+\begin{document}
+
+% Print the header with above personal informations
+% Give optional argument to change alignment(C: center, L: left, R: right)
+\makecvheader
+
+% Print the footer with 3 arguments(<left>, <center>, <right>)
+% Leave any of these blank if they are not needed
+% 2019-02-14 Chris Umphlett - add flexibility to the document name in footer, rather than have it be static Curriculum Vitae
+\makecvfooter
+  {February 2024}
+    { Md. Jubayer Hossain~~~·~~~CV}
+  {\thepage}
+
+
+%-------------------------------------------------------------------------------
+%	CV/RESUME CONTENT
+%	Each section is imported separately, open each file in turn to modify content
+%------------------------------------------------------------------------------
+
+
+
+\hypertarget{education-and-training}{%
+\subsection{Education and Training}\label{education-and-training}}
+
+\begin{cventries}
+    \cventry{Master of Science in Microbiology}{[Jagannath University](https://jnu.ac.bd/dept/portal/web/microbiology)}{Dhaka, Bangladesh}{2020--2021}{\begin{cvitems}
+\item Conducted an in‑depth project as part of my master’s program, centered on investigating and analyzing a Chikungunya outbreak, showcasing a dedicated commitment to advancing knowledge in the field of public health.
+\end{cvitems}}
+    \cventry{Bachelor of Science in Microbiology}{[Jagannath University](https://jnu.ac.bd/dept/portal/web/microbiology)}{Dhaka, Bangladesh}{2016--2019}{\begin{cvitems}
+\item Participated in a cutting‑edge project focused on the application of bioinformatics techniques for profiling antibiotic resistance genes within complex metagenomic DNA sequences.
+\end{cvitems}}
+\end{cventries}
+
+
+
+\end{document}
